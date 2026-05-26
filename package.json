@@ -1,12 +1,12 @@
 {
   "name": "@henrysssilveira/mcp-host-universal",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "license": "ISC",
   "author": "",
   "type": "module",
   "main": "index.js",
-    "bin": {
+  "bin": {
     "mcp-host": "./index.js"
   },
   "scripts": {
