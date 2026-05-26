@@ -1,0 +1,21 @@
+{
+  "name": "@henrysssilveira/mcp-host-universal",
+  "version": "1.0.1",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "boxen": "^8.0.1",
+    "chalk": "^5.6.2",
+    "cli-table3": "^0.6.5",
+    "figlet": "^1.11.0",
+    "gradient-string": "^3.0.0",
+    "ora": "^9.4.0"
+  }
+}
