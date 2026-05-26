@@ -1,13 +1,13 @@
-# MCP Universal CLI
+# MCP Host Universal
 
-<!-- Adicione uma imagem/banner aqui -->
 <!-- ![Banner](./assets/banner.png) -->
+[![image-mcp-host.jpg](https://i.postimg.cc/sXKs8822/image-mcp-host.jpg)](https://postimg.cc/bDG7SmkX)
 
 ---
 
 ## Visão Geral
 
-**MCP Universal CLI** é um host de linha de comando para servidores MCP (Model Context Protocol), com suporte a múltiplos modelos de linguagem via **OpenRouter**. Permite conectar ferramentas externas (n8n, filesystem, APIs customizadas) diretamente ao seu terminal com uma interface rica e interativa.
+**MCP Host Universal** é um host de linha de comando para servidores MCP (Model Context Protocol), com suporte a múltiplos modelos de linguagem via **OpenRouter**. Permite conectar ferramentas externas (n8n, filesystem, APIs customizadas) diretamente ao seu terminal com uma interface rica e interativa.
 
 ---
 
