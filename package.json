@@ -1,13 +1,24 @@
 {
   "name": "@henrysssilveira/mcp-host-universal",
-  "version": "1.0.4",
-  "description": "",
+  "version": "1.0.6",
+  "description": "<!-- ![Banner](./assets/banner.png) --> [![image-mcp-host.jpg](https://i.postimg.cc/sXKs8822/image-mcp-host.jpg)](https://postimg.cc/bDG7SmkX)",
+  "keywords": [
+    "mcp-host"
+  ],
+  "homepage": "https://github.com/henrysssilveira/MCP-Host-Universal#readme",
+  "bugs": {
+    "url": "https://github.com/henrysssilveira/MCP-Host-Universal/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henrysssilveira/MCP-Host-Universal.git"
+  },
   "license": "ISC",
-  "author": "",
+  "author": "Henrique Silveira",
   "type": "module",
   "main": "index.js",
   "bin": {
-    "mcp-host": "./index.js"
+    "mcp-host": "index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
