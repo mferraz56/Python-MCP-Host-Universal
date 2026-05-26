@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/henrysssilveira/MCP-Host-Universal.git"
   },
-  "license": "ISC",
+  "license": "MIT",
   "author": "Henrique Silveira",
   "type": "module",
   "main": "index.js",
