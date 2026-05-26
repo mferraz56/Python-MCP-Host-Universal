@@ -14,7 +14,7 @@
 ## Instalação
 
 ```bash
-npm install -g @henrysssilveira/mcp-host-universal
+npm i @henrysssilveira/mcp-host-universal
 ```
 
 Após instalar, rode com:
