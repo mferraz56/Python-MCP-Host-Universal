@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mcp-host-universal"
+version = "1.0.8"
+description = "Python CLI bootstrap for MCP Host Universal."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "mcp",
+]
+
+[project.scripts]
+mcp-host = "mcp_host_universal.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mcp_host_universal"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
