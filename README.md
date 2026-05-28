@@ -7,134 +7,98 @@
 
 ## Visão Geral
 
-**MCP Host Universal** é um host de linha de comando para servidores MCP (Model Context Protocol), com suporte a múltiplos modelos de linguagem via **OpenRouter**. Permite conectar ferramentas externas (n8n, filesystem, APIs customizadas) diretamente ao seu terminal com uma interface rica e interativa.
+**MCP Host Universal** é um CLI Python para conectar e usar serviços MCP (Model Context Protocol) no terminal. O runtime atual é **Python-only**, com entrada pelo comando `mcp-host`, suporte a serviços MCP via **HTTP** ou **stdio** e fluxo de chat usando **OpenRouter**.
 
 ---
 
-## Instalação
+## Requisitos
+
+- Python **3.11+**
+- Uma chave de API do [OpenRouter](https://openrouter.ai/keys) para concluir o onboarding e usar o chat
+- [`uv`](https://docs.astral.sh/uv/) recomendado para sincronizar dependências e instalar o CLI
+
+## Instalação Rápida
+
+### Rodar localmente a partir do repositório
 
 ```bash
-npm install -g @henrysssilveira/mcp-host-universal
+uv sync
+uv run mcp-host --help
+uv run mcp-host
 ```
 
-Após instalar, rode com:
+### Instalar o CLI como ferramenta local
 
 ```bash
+uv tool install .
+mcp-host --version
 mcp-host
 ```
 
 ---
 
-## Pré-requisitos
-
-- Node.js **18+**
-- Uma chave de API do [OpenRouter](https://openrouter.ai/keys)
-
----
-
 ## Primeiro uso
 
-Na primeira execução, o CLI abre um assistente de configuração interativo que solicita:
+Na primeira execução, o CLI abre um onboarding interativo quando não encontra um `config.json` válido ou quando a chave `openrouter.apiKey` ainda não foi configurada. O assistente solicita:
 
 1. Seu nome
 2. Chave da API do OpenRouter
-3. Tipo de modelos (pagos ou gratuitos)
-4. Modelo principal de tool-use e modelo de resposta final
-5. Configuração opcional de um servidor MCP
+3. Tipo de conta/modelos (pagos ou gratuitos)
+4. Modelo para tool use e modelo para resposta final
+5. Configuração opcional de um serviço MCP
 
-As configurações são salvas em `config.json` no diretório de instalação.
+Resolução padrão do arquivo de configuração:
 
----
+1. Caminho explícito em `--config`
+2. `config.json` legado na raiz do repositório, se ele já existir
+3. Caminho de configuração do usuário no sistema operacional
 
-## Modelos suportados
+Caminhos padrão por sistema:
 
-### Pagos
-| Modelo | Contexto |
-|---|---|
-| Claude Sonnet 4.5 | 200k |
-| Claude Opus 4 | 200k |
-| GPT-4o | 128k |
-| Gemini 2.5 Pro | 1M |
-| Mistral Large | 128k |
-| DeepSeek Chat V3 | 64k |
-| e outros... | — |
+- Windows: `%APPDATA%/mcp-host-universal/config.json`
+- macOS: `~/Library/Application Support/mcp-host-universal/config.json`
+- Linux: `~/.config/mcp-host-universal/config.json` ou `XDG_CONFIG_HOME/mcp-host-universal/config.json`
 
-### Gratuitos
-| Modelo | Contexto |
-|---|---|
-| Auto Router (recomendado) | — |
-| Llama 3.3 70B | 128k |
-| Gemma 4 31B | 128k |
-| Qwen3 Coder 480B | 128k |
-| e outros... | — |
+O CLI mantém compatibilidade com o schema legado de `config.json`.
 
 ---
 
-## Servidores MCP suportados
+## Flags Principais
 
-| Tipo | Descrição |
-|---|---|
-| **HTTP** | Qualquer servidor MCP via Streamable HTTP (ex: n8n) |
-| **stdio** | Servidores locais via processo (ex: `@modelcontextprotocol/server-filesystem`) |
+- `--config` aponta para um `config.json` específico
+- `--prompt` executa um prompt único, sem entrar no modo interativo
+- `--version` imprime a versão instalada do CLI
 
-### Templates prontos
-- `n8n` — `http://localhost:5678/mcp`
-- `OpenRouter MCP` — `https://openrouter.ai/mcp`
-- `Filesystem` — `npx @modelcontextprotocol/server-filesystem /tmp`
-- Personalizado via HTTP ou stdio
+Exemplos:
 
----
-
-## Comandos disponíveis
-
-| Comando | Descrição |
-|---|---|
-| `/` | Abre o menu interativo com dropdown |
-| `/servicos` | Status dos serviços conectados |
-| `/ferramentas` | Lista ferramentas por serviço |
-| `/modelo` | Troca o modelo ativo |
-| `/mcp` | Configura ou adiciona um servidor MCP |
-| `/limpar` | Limpa o histórico da conversa |
-| `/ajuda` | Exibe a ajuda |
-| `/sair` | Encerra o CLI |
-
----
-
-## Configuração manual
-
-O arquivo `config.json` gerado tem a seguinte estrutura:
-
-```json
-{
-  "_user": { "nome": "Seu Nome" },
-  "openrouter": {
-    "apiKey": "sk-...",
-    "pago": false,
-    "models": {
-      "tools": ["openrouter/auto"],
-      "final": ["openrouter/auto"]
-    }
-  },
-  "services": [
-    {
-      "name": "n8n",
-      "transport": "http",
-      "url": "http://localhost:5678/mcp",
-      "token": "",
-      "systemPrompt": "Você tem acesso ao n8n para criar e executar workflows.",
-      "enabled": true
-    }
-  ]
-}
+```bash
+uv run mcp-host --prompt "Liste as ferramentas MCP conectadas."
+mcp-host --config ./config.json
+mcp-host --version
 ```
 
 ---
 
-## Stack
+## Serviços MCP E Templates Embutidos
 
-- [`@modelcontextprotocol/sdk`](https://github.com/modelcontextprotocol/typescript-sdk) — cliente MCP
-- [OpenRouter](https://openrouter.ai) — roteamento de modelos
-- [`chalk`](https://github.com/chalk/chalk), [`ora`](https://github.com/sindresorhus/ora), [`figlet`](https://github.com/patorjk/figlet.js), [`gradient-string`](https://github.com/bokub/gradient-string), [`cli-table3`](https://github.com/cli-table/cli-table3), [`boxen`](https://github.com/sindresorhus/boxen) — UI de terminal
+O host aceita serviços MCP via **HTTP** ou **stdio**.
+
+Templates prontos incluídos:
+
+- `n8n` — `http://localhost:5678/mcp`
+- `OpenRouter MCP` — `https://openrouter.ai/mcp`
+- `Filesystem` — template stdio com **comando manual obrigatório**
+- `Personalizado — stdio`
+- `Personalizado — HTTP`
+
+O template de filesystem não injeta mais um comando pronto. Você deve informar manualmente `command` e `args` para o servidor filesystem que deseja usar.
+
+---
+
+## Documentação
+
+- [Guia de uso](docs/usage.md)
+- [Guia de migração para o CLI Python](docs/migration-from-node.md)
 
 ---
 
