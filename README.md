@@ -1,5 +1,7 @@
 # MCP Host Universal
 
+> Observacao: esta versao ainda nao foi testada manualmente em cenarios reais. Considere o onboarding e os fluxos principais como pendentes de validacao manual.
+
 <!-- ![Banner](./assets/banner.png) -->
 [![image-mcp-host.jpg](https://i.postimg.cc/sXKs8822/image-mcp-host.jpg)](https://postimg.cc/bDG7SmkX)
 
